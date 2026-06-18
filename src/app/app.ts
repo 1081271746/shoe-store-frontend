@@ -33,6 +33,15 @@ export class App implements OnInit {
 
   carritoAbierto = false;
 
+  filtroGenero = '';
+
+  filtroMarca = '';
+  modalAbierto = false;
+
+productoSeleccionado: Producto | null = null;
+
+  
+
   @ViewChild('productosSection')
   productosSection!: ElementRef;
 
@@ -61,6 +70,20 @@ export class App implements OnInit {
       .scrollIntoView({
         behavior: 'smooth'
       });
+  }
+
+  obtenerProductosFiltrados(): Producto[] {
+
+    return this.productos.filter(producto => {
+
+      const coincideGenero =
+        !this.filtroGenero ||
+        producto.genero === this.filtroGenero;
+
+      return coincideGenero;
+
+    });
+
   }
 
   agregarAlCarrito(
@@ -111,13 +134,11 @@ export class App implements OnInit {
     carrito.forEach(item => {
 
       mensaje +=
-        `• ${item.producto.nombre}
-x${item.cantidad}%0A`;
+        `• ${item.producto.nombre} x${item.cantidad}%0A`;
     });
 
     mensaje +=
-      `%0A💰 Total:
-$${this.calcularTotal()}`;
+      `%0A💰 Total: $${this.calcularTotal()}`;
 
     const url =
       `https://wa.me/${numero}?text=${mensaje}`;
@@ -126,6 +147,34 @@ $${this.calcularTotal()}`;
       url,
       '_blank'
     );
+  }
+
+  abrirProducto(
+  producto: Producto
+) {
+
+  console.log('ABRIENDO MODAL');
+  console.log(producto);
+
+  this.productoSeleccionado =
+    producto;
+
+  this.modalAbierto = true;
+
+}
+
+cerrarProducto() {
+
+  this.modalAbierto = false;
+
+  this.productoSeleccionado = null;
+
+}
+
+  probarClick() {
+
+    console.log('CLICK FUNCIONA');
+
   }
 
 }

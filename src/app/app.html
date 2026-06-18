@@ -4,11 +4,27 @@
     SHOE STORE
   </div>
 
-  <ul class="menu">
-    <li>Hombre</li>
-    <li>Mujer</li>
-    <li>Marcas</li>
-  </ul>
+ <ul class="menu">
+
+  <li
+    (click)="filtroGenero='Hombre'"
+  >
+    Hombre
+  </li>
+
+  <li
+    (click)="filtroGenero='Mujer'"
+  >
+    Mujer
+  </li>
+
+  <li
+    (click)="filtroGenero=''"
+  >
+    Todos
+  </li>
+
+</ul>
 
   <div
     class="cart"
@@ -84,12 +100,16 @@
 
   <div class="products-grid">
 
-    @for (
-      producto of productos;
-      track producto.id
-    ) {
+   @for (
+  producto of obtenerProductosFiltrados();
+  track producto.id
+  ) 
+{
 
-      <div class="product-card">
+      <div
+  class="product-card"
+  (click)="abrirProducto(producto)"
+>
 
         <img
           [src]="producto.imagen"
@@ -206,6 +226,53 @@
       (click)="comprarPorWhatsapp()"
     >
       Comprar por WhatsApp
+    </button>
+
+  </div>
+
+</div>
+
+}
+
+@if (modalAbierto && productoSeleccionado) {
+
+<div class="product-modal-overlay">
+
+  <div class="product-modal">
+
+    <button
+      class="close-modal"
+      (click)="cerrarProducto()"
+    >
+      ✕
+    </button>
+
+    <img
+      [src]="productoSeleccionado.imagen"
+      [alt]="productoSeleccionado.nombre"
+    >
+
+    <h2>
+      {{ productoSeleccionado.nombre }}
+    </h2>
+
+    <p class="modal-brand">
+      {{ productoSeleccionado.marca.nombre }}
+    </p>
+
+    <p class="modal-description">
+      {{ productoSeleccionado.descripcion }}
+    </p>
+
+    <h3>
+      $ {{ productoSeleccionado.precio }}
+    </h3>
+
+    <button
+      class="buy-btn"
+      (click)="agregarAlCarrito(productoSeleccionado)"
+    >
+      Agregar al carrito
     </button>
 
   </div>
