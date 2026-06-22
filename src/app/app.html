@@ -194,9 +194,14 @@
           </h4>
 
           <p>
-            Cantidad:
-            {{ item.cantidad }}
-          </p>
+  Talla:
+  {{ item.talla }}
+</p>
+
+<p>
+  Cantidad:
+  {{ item.cantidad }}
+</p>
 
           <span>
             $
@@ -263,6 +268,60 @@
     <p class="modal-description">
       {{ productoSeleccionado.descripcion }}
     </p>
+
+    <div class="tallas-container">
+
+  <h4>
+    Selecciona tu talla
+  </h4>
+
+  <div class="tallas-grid">
+
+    <button
+      (click)="seleccionarTalla('39')"
+      [class.talla-activa]="tallaSeleccionada === '39'"
+    >
+      39
+    </button>
+
+    <button
+      (click)="seleccionarTalla('40')"
+      [class.talla-activa]="tallaSeleccionada === '40'"
+    >
+      40
+    </button>
+
+    <button
+      (click)="seleccionarTalla('41')"
+      [class.talla-activa]="tallaSeleccionada === '41'"
+    >
+      41
+    </button>
+
+    <button
+      (click)="seleccionarTalla('42')"
+      [class.talla-activa]="tallaSeleccionada === '42'"
+    >
+      42
+    </button>
+
+    <button
+      (click)="seleccionarTalla('43')"
+      [class.talla-activa]="tallaSeleccionada === '43'"
+    >
+      43
+    </button>
+
+    <button
+      (click)="seleccionarTalla('44')"
+      [class.talla-activa]="tallaSeleccionada === '44'"
+    >
+      44
+    </button>
+
+  </div>
+
+</div>
 
     <h3>
       $ {{ productoSeleccionado.precio }}

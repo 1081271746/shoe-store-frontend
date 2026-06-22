@@ -503,3 +503,72 @@
   background: white;
   color: black;
 }
+
+.tallas-container {
+
+  margin: 25px 0;
+
+}
+
+.tallas-container h4 {
+
+  color: white;
+
+  margin-bottom: 15px;
+
+  text-align: center;
+
+}
+
+.tallas-grid {
+
+  display: flex;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+}
+
+.tallas-grid button {
+
+  width: 55px;
+  height: 55px;
+
+  border-radius: 12px;
+
+  border: 1px solid #333;
+
+  background: #1a1a1a;
+
+  color: white;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+
+  font-weight: bold;
+
+  font-size: 15px;
+
+}
+
+.tallas-grid button:hover {
+
+  transform: scale(1.08);
+
+  border-color: white;
+
+}
+
+.talla-activa {
+
+  background: white !important;
+
+  color: black !important;
+
+  border-color: white !important;
+
+}

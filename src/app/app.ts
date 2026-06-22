@@ -40,6 +40,8 @@ export class App implements OnInit {
 
 productoSeleccionado: Producto | null = null;
 
+tallaSeleccionada = '';
+
   
 
   @ViewChild('productosSection')
@@ -87,16 +89,32 @@ productoSeleccionado: Producto | null = null;
   }
 
   agregarAlCarrito(
-    producto: Producto
-  ) {
+  producto: Producto
+) {
 
+  const talla =
+    this.tallaSeleccionada || 'Sin talla';
+if (!this.tallaSeleccionada) {
+
+  alert(
+    'Debes seleccionar una talla primero.'
+  );
+
+  return;
+
+}
+
+  this.carritoService
+    .agregarProducto(
+      producto,
+      talla
+    );
+
+  this.cantidadCarrito =
     this.carritoService
-      .agregarProducto(producto);
+    .obtenerCantidad();
 
-    this.cantidadCarrito =
-      this.carritoService
-      .obtenerCantidad();
-  }
+}
 
   abrirCarrito() {
 
@@ -128,20 +146,46 @@ productoSeleccionado: Producto | null = null;
       this.carritoService
       .obtenerCarrito();
 
-    let mensaje =
-      'Hola, quiero pedir:%0A%0A';
+      let mensaje =
+  'SHOE STORE\n\n' +
 
-    carrito.forEach(item => {
+  'Hola,\n\n' +
 
-      mensaje +=
-        `• ${item.producto.nombre} x${item.cantidad}%0A`;
-    });
+  'Quiero realizar el siguiente pedido:\n\n';
+
+  carrito.forEach(item => {
+
+  mensaje +=
+    `Producto: ${item.producto.nombre}\n`;
+
+  mensaje +=
+    `Talla: ${item.talla}\n`;
+
+  mensaje +=
+    `Cantidad: ${item.cantidad}\n`;
+
+  mensaje +=
+    `Precio: $${item.producto.precio}\n\n`;
+
+});
+
+
 
     mensaje +=
-      `%0A💰 Total: $${this.calcularTotal()}`;
 
+  '━━━━━━━━━━━━━━\n\n' +
+
+  `TOTAL: $${this.calcularTotal()}\n\n` +
+
+  'Quedo atento a disponibilidad y métodos de pago.\n\n' +
+
+  'Gracias.';
+
+const mensajeCodificado =
+  encodeURIComponent(mensaje);
+  
     const url =
-      `https://wa.me/${numero}?text=${mensaje}`;
+  `https://wa.me/${numero}?text=${mensajeCodificado}`;
 
     window.open(
       url,
@@ -149,7 +193,7 @@ productoSeleccionado: Producto | null = null;
     );
   }
 
-  abrirProducto(
+ abrirProducto(
   producto: Producto
 ) {
 
@@ -159,18 +203,30 @@ productoSeleccionado: Producto | null = null;
   this.productoSeleccionado =
     producto;
 
+  this.tallaSeleccionada = '';
+
   this.modalAbierto = true;
 
 }
 
 cerrarProducto() {
 
+  
+
   this.modalAbierto = false;
 
   this.productoSeleccionado = null;
-
+  
 }
 
+seleccionarTalla(
+  talla: string
+) {
+
+  this.tallaSeleccionada =
+    talla;
+
+}
   probarClick() {
 
     console.log('CLICK FUNCIONA');

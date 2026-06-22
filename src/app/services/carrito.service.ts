@@ -9,11 +9,16 @@ export class CarritoService {
 
   carrito: CarritoItem[] = [];
 
-  agregarProducto(producto: Producto) {
+  agregarProducto(
+    producto: Producto,
+    talla: string
+  ) {
 
     const itemExistente =
       this.carrito.find(
-        item => item.producto.id === producto.id
+        item =>
+          item.producto.id === producto.id &&
+          item.talla === talla
       );
 
     if (itemExistente) {
@@ -23,10 +28,17 @@ export class CarritoService {
     } else {
 
       this.carrito.push({
+
         producto,
-        cantidad: 1
+
+        cantidad: 1,
+
+        talla
+
       });
+
     }
+
   }
 
   obtenerCantidad(): number {
@@ -36,11 +48,13 @@ export class CarritoService {
         total + item.cantidad,
       0
     );
+
   }
 
   obtenerCarrito() {
 
     return this.carrito;
+
   }
 
 }
